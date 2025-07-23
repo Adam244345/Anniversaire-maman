@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Joyeux anniversaire Maman !</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        position: relative;
+      }
+      button {
+        padding: 20px 50px;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        background: linear-gradient(45deg, #ff6a00, #ee0979);
+        color: white;
+        box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+        animation: pulse 2s infinite;
+        transition: background 0.3s ease;
+      }
+      button:hover {
+        background: linear-gradient(45deg, #ee0979, #ff6a00);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(255, 105, 180, 1);
+        }
+      }
+      #message {
+        margin-top: 30px;
+        font-size: 2rem;
+        color: #5a005a;
+        opacity: 0;
+        transition: opacity 1.5s ease;
+        text-align: center;
+      }
+      /* Confetti styles */
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background-color: #ff6a00;
+        opacity: 0.8;
+        top: 0;
+        pointer-events: none;
+        animation-name: fall;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">Clique ici pour ta surprise ! 🎉</button>
+    <div id="message"></div>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const message = document.getElementById("message");
+
+      function createConfetti() {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.backgroundColor = `hsl(${
+          Math.random() * 360
+        }, 100%, 70%)`;
+        confetti.style.animationDuration = 3 + Math.random() * 3 + "s";
+        confetti.style.width = confetti.style.height =
+          5 + Math.random() * 10 + "px";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 6000);
+      }
+
+      function launchConfetti() {
+        const interval = setInterval(createConfetti, 150);
+        setTimeout(() => clearInterval(interval), 4000);
+      }
+
+      btn.addEventListener("click", () => {
+        message.textContent =
+          "🎉 Joyeux anniversaire maman ! Je t'aime très fort 💖";
+        message.style.opacity = 1;
+        launchConfetti();
+        btn.disabled = true;
+        btn.style.cursor = "default";
+        btn.style.opacity = "0.6";
+      });
+    </script>
+  </body>
+</html>
